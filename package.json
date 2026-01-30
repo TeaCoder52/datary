@@ -1,0 +1,38 @@
+{
+	"name": "datary",
+	"version": "0.0.1",
+	"description": "A modern cross-platform database explorer",
+	"scripts": {
+		"build": "pnpm run build:packages && pnpm --filter @datary/desktop build",
+		"build:windows": "pnpm run build && pnpm --filter @datary/desktop dist --win",
+		"build:mac": "pnpm run build && pnpm --filter @datary/desktop dist --mac",
+		"build:linux": "pnpm run build && pnpm --filter @datary/desktop dist --linux",
+		"build:packages": "pnpm --filter @datary/core run build && pnpm --filter @datary/ipc run build && pnpm --filter @datary/db run build",
+		"prepare": "husky",
+		"dev": "pnpm --filter desktop dev",
+		"prettier:format": "prettier --write .",
+		"prettier:check": "prettier --check .",
+		"release": "release-it"
+	},
+	"lint-staged": {
+		"{apps,packages}/**/*.{ts,tsx,json,md}": "prettier --write"
+	},
+	"packageManager": "pnpm@10.0.0",
+	"devDependencies": {
+		"@commitlint/cli": "^20.3.1",
+		"@commitlint/config-conventional": "^20.3.1",
+		"@commitlint/types": "^20.3.1",
+		"@trivago/prettier-plugin-sort-imports": "^6.0.2",
+		"@types/electron-builder": "^2.8.2",
+		"@types/node": "^24.10.9",
+		"cross-env": "^7.0.3",
+		"electron-builder": "^26.4.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.2.7",
+		"prettier": "^3.8.1",
+		"prettier-plugin-tailwindcss": "^0.7.2",
+		"release-it": "^19.2.4",
+		"rimraf": "^6.1.2",
+		"typescript": "^5.9.3"
+	}
+}

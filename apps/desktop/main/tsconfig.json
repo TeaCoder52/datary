@@ -1,0 +1,11 @@
+{
+	"extends": "../../../tsconfig.base.json",
+	"compilerOptions": {
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"outDir": "../dist/main",
+		"rootDir": ".",
+		"types": ["node"]
+	},
+	"references": [{ "path": "../../../packages/db" }, { "path": "../../../packages/ipc" }]
+}

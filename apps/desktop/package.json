@@ -1,0 +1,136 @@
+{
+	"name": "@datary/desktop",
+	"version": "0.0.1",
+	"main": "dist/main/index.js",
+	"author": {
+		"name": "Vadim (TeaCoder)",
+		"url": "https://github.com/TeaCoder52"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/TeaCoder52/datary.git"
+	},
+	"scripts": {
+		"dev": "concurrently \"pnpm dev:preload\" \"pnpm dev:renderer\" \"pnpm dev:main\" \"pnpm dev:electron\"",
+		"dev:renderer": "pnpm --filter @datary/renderer dev",
+		"dev:preload": "tsc -p preload/tsconfig.json --watch",
+		"dev:main": "tsc -p main/tsconfig.json --watch",
+		"dev:electron": "cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron .",
+		"build:preload": "tsc -p preload/tsconfig.json",
+		"build:renderer": "pnpm --filter @datary/renderer build",
+		"build:main": "tsc -p main/tsconfig.json",
+		"build": "pnpm run build:preload && pnpm run build:renderer && pnpm run build:main",
+		"dist": "electron-builder"
+	},
+	"dependencies": {
+		"@datary/db": "workspace:*",
+		"@datary/ipc": "workspace:*",
+		"electron-store": "^11.0.2"
+	},
+	"devDependencies": {
+		"concurrently": "^9.2.1",
+		"cross-env": "^10.1.0",
+		"electron": "^40.0.0",
+		"typescript": "^5.9.3"
+	},
+	"build": {
+		"appId": "com.teacoder.datary",
+		"productName": "Datary",
+		"icon": "assets/icons/app-icon.png",
+		"files": [
+			"dist/**/*",
+			"preload/**/*",
+			"renderer/dist/**/*",
+			"assets/icons/**/*"
+		],
+		"directories": {
+			"output": "build"
+		},
+		"win": {
+			"target": [
+				{
+					"target": "nsis",
+					"arch": [
+						"x64",
+						"ia32"
+					]
+				},
+				{
+					"target": "msi",
+					"arch": [
+						"x64"
+					]
+				}
+			]
+		},
+		"nsis": {
+			"oneClick": false,
+			"allowToChangeInstallationDirectory": true,
+			"perMachine": false
+		},
+		"mac": {
+			"category": "public.app-category.developer-tools",
+			"icon": "assets/icons/app-icon.icns",
+			"target": [
+				{
+					"target": "dmg",
+					"arch": [
+						"x64",
+						"arm64"
+					]
+				},
+				{
+					"target": "zip",
+					"arch": [
+						"x64",
+						"arm64"
+					]
+				}
+			],
+			"hardenedRuntime": true,
+			"gatekeeperAssess": false,
+			"entitlements": "assets/entitlements.mac.plist",
+			"entitlementsInherit": "assets/entitlements.mac.plist"
+		},
+		"dmg": {
+			"background": "assets/dmg-background.png",
+			"icon": "assets/icons/app-icon.icns",
+			"iconSize": 128,
+			"contents": [
+				{
+					"x": 130,
+					"y": 220
+				},
+				{
+					"x": 410,
+					"y": 220,
+					"type": "link",
+					"path": "/Applications"
+				}
+			]
+		},
+		"linux": {
+			"icon": "assets/icons",
+			"category": "Development",
+			"target": [
+				"AppImage",
+				"deb",
+				"rpm"
+			],
+			"maintainer": "Vadim (TeaCoder)",
+			"vendor": "Datary",
+			"synopsis": "Modern cross-platform database explorer",
+			"description": "Datary is a modern desktop database explorer built with Electron."
+		},
+		"appImage": {
+			"artifactName": "Datary-${version}-${arch}.AppImage"
+		},
+		"deb": {
+			"depends": [
+				"libnotify4",
+				"libxtst6",
+				"libnss3"
+			]
+		}
+	}
+}

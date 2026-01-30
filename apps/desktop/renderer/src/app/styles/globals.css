@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono&display=swap');
+
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+	--background: #f5f5f5;
+	--foreground: #1c1e1f;
+	--card: #ffffff;
+	--card-foreground: #1c1e1f;
+	--popover: #ffffff;
+	--popover-foreground: #1c1e1f;
+	--primary: #1471f4;
+	--primary-foreground: #ffffff;
+	--secondary: #e5e7eb;
+	--secondary-foreground: #1c1e1f;
+	--muted: #e5e7eb;
+	--muted-foreground: #6b7280;
+	--accent: #1471f4;
+	--accent-foreground: #ffffff;
+	--destructive: #ef4444;
+	--destructive-foreground: #ffffff;
+	--border: #d1d5db;
+	--input: #d1d5db;
+	--ring: #1471f4;
+	--chart-1: #1471f4;
+	--chart-2: #22c55e;
+	--chart-3: #f59e0b;
+	--chart-4: #8b5cf6;
+	--chart-5: #ec4899;
+	--radius: 0.5rem;
+	--sidebar: #f9fafb;
+	--sidebar-foreground: #1c1e1f;
+	--sidebar-primary: #1471f4;
+	--sidebar-primary-foreground: #ffffff;
+	--sidebar-accent: #e5e7eb;
+	--sidebar-accent-foreground: #1c1e1f;
+	--sidebar-border: #d1d5db;
+	--sidebar-ring: #1471f4;
+	--sidebar-muted: #6b7280;
+}
+
+.dark {
+	--background: #1c1e1f;
+	--foreground: #e8eaed;
+	--card: #232526;
+	--card-foreground: #e8eaed;
+	--popover: #232526;
+	--popover-foreground: #e8eaed;
+	--primary: #1471f4;
+	--primary-foreground: #ffffff;
+	--secondary: #2a2d2e;
+	--secondary-foreground: #e8eaed;
+	--muted: #2a2d2e;
+	--muted-foreground: #9ca3af;
+	--accent: #1471f4;
+	--accent-foreground: #ffffff;
+	--destructive: #ef4444;
+	--destructive-foreground: #ffffff;
+	--border: #363939;
+	--input: #2a2d2e;
+	--ring: #1471f4;
+	--chart-1: #1471f4;
+	--chart-2: #22c55e;
+	--chart-3: #f59e0b;
+	--chart-4: #8b5cf6;
+	--chart-5: #ec4899;
+	--radius: 0.5rem;
+	--sidebar: #141414;
+	--sidebar-foreground: #e8eaed;
+	--sidebar-primary: #1471f4;
+	--sidebar-primary-foreground: #ffffff;
+	--sidebar-accent: #1f2122;
+	--sidebar-accent-foreground: #e8eaed;
+	--sidebar-border: #2a2d2e;
+	--sidebar-ring: #1471f4;
+	--sidebar-muted: #9ca3af;
+}
+
+@theme inline {
+	--color-sidebar-muted: var(--sidebar-muted);
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-destructive: var(--destructive);
+	--color-destructive-foreground: var(--destructive-foreground);
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+	--color-chart-1: var(--chart-1);
+	--color-chart-2: var(--chart-2);
+	--color-chart-3: var(--chart-3);
+	--color-chart-4: var(--chart-4);
+	--color-chart-5: var(--chart-5);
+	--radius-sm: calc(var(--radius) - 4px);
+	--radius-md: calc(var(--radius) - 2px);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) + 4px);
+	--color-sidebar: var(--sidebar);
+	--color-sidebar-foreground: var(--sidebar-foreground);
+	--color-sidebar-primary: var(--sidebar-primary);
+	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+	--color-sidebar-accent: var(--sidebar-accent);
+	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+	--color-sidebar-border: var(--sidebar-border);
+	--color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+		font-family: 'Geist Mono', monospace;
+		background-color: var(--background);
+		color: var(--foreground);
+		height: 100%;
+	}
+}
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-sidebar-accent) var(--color-sidebar);
+}
+
+*::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+	background: var(--color-sidebar);
+	border-radius: var(--radius);
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: var(--color-sidebar-accent);
+	border-radius: var(--radius);
+	border: 2px solid var(--color-sidebar);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background-color: var(--color-sidebar-primary);
+}
+
+*::-webkit-scrollbar-corner {
+	background: var(--color-sidebar);
+}

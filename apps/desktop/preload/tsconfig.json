@@ -1,0 +1,10 @@
+{
+	"extends": "../../../tsconfig.base.json",
+	"compilerOptions": {
+		"module": "CommonJS",
+		"outDir": "../dist/preload",
+		"rootDir": ".",
+		"types": ["node"]
+	},
+	"references": [{ "path": "../../../packages/db" }, { "path": "../../../packages/ipc" }]
+}
