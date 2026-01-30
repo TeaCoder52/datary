@@ -58,19 +58,19 @@ export function TreeNodeItem({ node, level, selectedTable, onSelectTable }: Tree
 				style={{ paddingLeft: `${level * 16}px` }}
 				onClick={toggle}
 			>
-				{hasChildren ? (
-					<span className="flex h-4 w-4 items-center justify-center">
-						{isOpen ? (
+				<span className="flex h-4 w-4 shrink-0 items-center justify-center">
+					{hasChildren ? (
+						isOpen ? (
 							<ChevronDown className="text-muted-foreground h-3.5 w-3.5" />
 						) : (
 							<ChevronRight className="text-muted-foreground h-3.5 w-3.5" />
-						)}
-					</span>
-				) : (
-					<span className="w-4" />
-				)}
-				<span>{getIcon()}</span>
-				<span className="truncate">{node.name}</span>
+						)
+					) : (
+						<span className="w-4" />
+					)}
+				</span>
+				<span className="shrink-0">{getIcon()}</span>
+				<span className="flex-1 truncate">{node.name}</span>
 			</button>
 
 			{hasChildren && isOpen && (

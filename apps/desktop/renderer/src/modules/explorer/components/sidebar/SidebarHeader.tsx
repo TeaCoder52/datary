@@ -45,9 +45,12 @@ export function SidebarHeader({
 			</Button>
 
 			<Select value={selectedDatabase} onValueChange={val => onSelectDatabase(val)}>
-				<SelectTrigger className="bg-sidebar h-8 flex-1 text-sm">
-					<SelectValue />
+				<SelectTrigger className="bg-sidebar h-8 min-w-0 flex-1 text-sm">
+					<SelectValue>
+						<span className="block truncate">{selectedDatabase}</span>
+					</SelectValue>
 				</SelectTrigger>
+
 				<SelectContent position="popper">
 					{databases.map(db => (
 						<SelectItem key={db} value={db}>
