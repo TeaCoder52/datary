@@ -18,6 +18,12 @@ export function registerMetadataHandlers() {
 		}
 	})
 
+	ipcMain.handle(IPC_CHANNELS.DB_GET_ADAPTER_TYPE, async () => {
+		if (!manager.isConnected()) throw new Error('DB not connected')
+
+		return manager.getAdapterType()
+	})
+
 	ipcMain.handle(IPC_CHANNELS.DB_LOAD_DATABASES, async () => {
 		if (!manager.isConnected()) throw new Error('DB not connected')
 

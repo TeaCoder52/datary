@@ -16,7 +16,7 @@ export function SchemaTree({ database, selectedTable, onSelectTable }: SchemaTre
 	if (error) return <div className="text-destructive px-4 py-2 text-sm">{error}</div>
 
 	if (!tree.length)
-		return <div className="text-muted-foreground px-4 py-2 text-sm">No schemas found</div>
+		return <div className="text-muted-foreground px-4 py-2 text-sm">No data found</div>
 
 	return (
 		<div className="custom-scrollbar max-h-full space-y-0.5 overflow-auto py-2">

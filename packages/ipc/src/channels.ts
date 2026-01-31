@@ -17,6 +17,7 @@ export const IPC_CHANNELS = {
 
 	DB_QUERY: 'db:query',
 
+	DB_GET_ADAPTER_TYPE: 'db:get-adapter-type',
 	DB_LOAD_DATABASES: 'db:metadata:load-databases',
 	DB_LOAD_SCHEMAS: 'db:metadata:load-schemas',
 	DB_LOAD_TABLES: 'db:metadata:load-tables',

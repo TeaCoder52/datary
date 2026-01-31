@@ -18,10 +18,14 @@ declare global {
 			version: string
 			db: {
 				connect: Function
+				getAdapterType: Function
 				loadDatabases(): Promise<DatabaseMetadataContract[]>
 				loadSchemas(database: string): Promise<any[]>
-				loadTables(database: string, schema: string): Promise<TableMetadataContract[]>
-				loadViews(database: string, schema: string): Promise<TableMetadataContract[]>
+				loadTables(
+					database: string,
+					schema: string | null
+				): Promise<TableMetadataContract[]>
+				loadViews(database: string, schema: string | null): Promise<TableMetadataContract[]>
 				loadColumns(
 					database: string,
 					schema: string,

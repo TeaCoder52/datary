@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { getConnectionIcon } from '../lib/get-connection-icon'
 
 import type { DatabaseConnection } from '@/entities/connection/model/connection.types'
-import { cn } from '@/shared/lib/utils'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -26,21 +25,13 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/shared/ui/tooltip'
 
 interface Props {
 	connection: DatabaseConnection
-	active?: boolean
 	collapsed?: boolean
 	onSelect: () => void
 	onConnect?: () => void
 	onDelete?: () => void
 }
 
-export function ConnectionItem({
-	connection,
-	active,
-	collapsed,
-	onSelect,
-	onConnect,
-	onDelete
-}: Props) {
+export function ConnectionItem({ connection, collapsed, onSelect, onConnect, onDelete }: Props) {
 	const [contextMenuOpen, setContextMenuOpen] = useState(false)
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
@@ -62,10 +53,7 @@ export function ConnectionItem({
 				<TooltipTrigger asChild>
 					<button
 						onClick={onSelect}
-						className={cn(
-							'flex w-full items-center justify-center rounded-md p-2',
-							active ? 'bg-sidebar-accent' : 'hover:bg-sidebar-accent/50'
-						)}
+						className="hover:bg-sidebar-accent/50 flex w-full items-center justify-center rounded-md p-2"
 					>
 						{getConnectionIcon(connection.connectionType)}
 					</button>
@@ -82,10 +70,7 @@ export function ConnectionItem({
 					<button
 						onClick={onSelect}
 						onContextMenu={handleContextMenu}
-						className={cn(
-							'group relative flex w-full gap-3 rounded-md px-3 py-2.5 text-left',
-							active ? 'bg-sidebar-accent' : 'hover:bg-sidebar-accent/50'
-						)}
+						className="group hover:bg-sidebar-accent/50 relative flex w-full gap-3 rounded-md px-3 py-2.5 text-left"
 					>
 						<div className="mt-0.5 shrink-0">
 							{getConnectionIcon(connection.connectionType)}

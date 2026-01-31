@@ -1,21 +1,49 @@
-import { PostgresAdapter, PostgresMetadataRepository } from '@datary/db'
-import type { DBConnectionConfig } from '@datary/db'
+import type { DbAdapterPort } from '@datary/core'
+import {
+	type DBConnectionConfig,
+	MysqlAdapter,
+	MysqlMetadataRepository,
+	PostgresAdapter,
+	PostgresMetadataRepository
+} from '@datary/db'
 
 import { logger } from '../../utils/logger'
 
 export class ConnectionManager {
-	private adapter: PostgresAdapter | null = null
+	private adapter: DbAdapterPort | null = null
+	private adapterType: string | null = null
 
-	private metadataRepo: PostgresMetadataRepository | null = null
+	private metadataRepo: any = null
 
 	public async connect(config: DBConnectionConfig) {
-		this.adapter = new PostgresAdapter(config)
+		switch (config.connectionType) {
+			case 'postgresql':
+				this.adapter = new PostgresAdapter(config)
+				await this.adapter.connect()
+				// @ts-ignore
+				this.metadataRepo = new PostgresMetadataRepository(this.adapter['client']!)
+				this.adapterType = 'postgres'
+				break
 
-		await this.adapter.connect()
+			case 'mysql':
+				this.adapter = new MysqlAdapter(config)
+				await this.adapter.connect()
+				// @ts-ignore
+				this.metadataRepo = new MysqlMetadataRepository(this.adapter['client']!)
+				this.adapterType = 'mysql'
+				break
 
-		this.metadataRepo = new PostgresMetadataRepository(this.adapter['client']!)
+			default:
+				throw new Error(`Unsupported DB type: ${config.connectionType}`)
+		}
 
-		logger.info('DB connected')
+		logger.info(`DB connected (${config.connectionType})`)
+	}
+
+	public getAdapterType() {
+		if (!this.adapterType) throw new Error('DB not connected')
+
+		return this.adapterType
 	}
 
 	public isConnected() {
@@ -27,6 +55,7 @@ export class ConnectionManager {
 
 		this.adapter = null
 		this.metadataRepo = null
+		this.adapterType = null
 
 		logger.info('DB disconnected')
 	}

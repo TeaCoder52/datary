@@ -1,6 +1,8 @@
 import { Loader2 } from 'lucide-react'
 import { type ReactNode, useEffect, useState } from 'react'
 
+import { Button } from '@/shared/ui/button'
+
 interface DataryProviderProps {
 	children: ReactNode
 }
@@ -43,12 +45,7 @@ export function DataryProvider({ children }: DataryProviderProps) {
 				<p className="text-muted-foreground max-w-xs text-center">
 					The application failed to initialize correctly. Please try reloading the app.
 				</p>
-				<button
-					className="bg-primary hover:bg-primary/90 rounded px-4 py-2 text-white"
-					onClick={handleReload}
-				>
-					Reload
-				</button>
+				<Button onClick={handleReload}>Reload</Button>
 			</div>
 		)
 	}

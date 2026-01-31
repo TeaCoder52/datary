@@ -5,6 +5,8 @@ import { ipcRenderer } from 'electron'
 export const dbApi = {
 	connect: (config: DBConnectionConfig) => ipcRenderer.invoke(IPC_CHANNELS.DB_CONNECT, config),
 
+	getAdapterType: () => ipcRenderer.invoke(IPC_CHANNELS.DB_GET_ADAPTER_TYPE),
+
 	loadDatabases: () => ipcRenderer.invoke(IPC_CHANNELS.DB_LOAD_DATABASES),
 
 	loadSchemas: (database: string) => ipcRenderer.invoke(IPC_CHANNELS.DB_LOAD_SCHEMAS, database),

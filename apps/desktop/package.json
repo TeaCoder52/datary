@@ -23,6 +23,7 @@
 		"dist": "electron-builder"
 	},
 	"dependencies": {
+		"@datary/core": "workspace:*",
 		"@datary/db": "workspace:*",
 		"@datary/ipc": "workspace:*",
 		"electron-store": "^11.0.2"
