@@ -10,8 +10,8 @@
 		"build:packages": "pnpm --filter @datary/core run build && pnpm --filter @datary/ipc run build && pnpm --filter @datary/db run build",
 		"prepare": "husky",
 		"dev": "pnpm --filter desktop dev",
-		"prettier:format": "prettier --write .",
-		"prettier:check": "prettier --check .",
+		"prettier:format": "prettier --write {apps,packages}/**/*.{ts,tsx,json,md}",
+		"prettier:check": "prettier --check {apps,packages}/**/*.{ts,tsx,json,md}",
 		"release": "release-it"
 	},
 	"lint-staged": {

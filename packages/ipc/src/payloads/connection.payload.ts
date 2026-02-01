@@ -4,6 +4,6 @@ export interface DBConnectionPayload {
 	user: string
 	password: string
 	database: string
-	connectionType: 'postgresql' | 'mysql'
+	type: 'postgresql' | 'mysql'
 	ssl?: boolean
 }

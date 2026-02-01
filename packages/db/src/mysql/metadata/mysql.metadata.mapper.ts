@@ -1,4 +1,4 @@
-import type { Row } from '../shared/sql.types'
+import type { Row } from '../../shared/sql.types'
 
 export function mapTableSchema(
 	rows: Row[]

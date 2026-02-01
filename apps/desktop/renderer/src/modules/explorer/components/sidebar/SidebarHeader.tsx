@@ -1,6 +1,15 @@
 import { Database, PanelLeftClose, PanelLeftOpen, Plus } from 'lucide-react'
+import { useState } from 'react'
+
+import { CreateDatabaseDialog } from '../CreateDatabaseDialog'
 
 import { Button } from '@/shared/ui/button'
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger
+} from '@/shared/ui/dropdown-menu'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/ui/select'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/shared/ui/tooltip'
 
@@ -21,6 +30,8 @@ export function SidebarHeader({
 	onSelectDatabase,
 	onNewQuery
 }: Props) {
+	const [createDialogOpen, setCreateDialogOpen] = useState(false)
+
 	if (collapsed) {
 		return (
 			<div className="border-sidebar-border flex items-center justify-center border-b py-2.5">
@@ -63,10 +74,22 @@ export function SidebarHeader({
 				</SelectContent>
 			</Select>
 
-			<Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={onNewQuery}>
-				<Plus className="h-4 w-4" />
-				<span className="sr-only">New query</span>
-			</Button>
+			<DropdownMenu>
+				<DropdownMenuTrigger asChild>
+					<Button variant="ghost" size="icon">
+						<Plus className="h-4 w-4" />
+						<span className="sr-only">New</span>
+					</Button>
+				</DropdownMenuTrigger>
+				<DropdownMenuContent align="start">
+					<DropdownMenuItem onClick={() => setCreateDialogOpen(true)}>
+						New Database
+					</DropdownMenuItem>
+					<DropdownMenuItem onClick={onNewQuery}>New Query</DropdownMenuItem>
+				</DropdownMenuContent>
+			</DropdownMenu>
+
+			<CreateDatabaseDialog open={createDialogOpen} onOpenChange={setCreateDialogOpen} />
 		</div>
 	)
 }

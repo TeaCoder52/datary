@@ -8,7 +8,7 @@ const DOMAIN_REGEX = /^(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(\.(?!-)[a-zA-Z0-9-]{1,63}(?
 
 export const connectionSchema = z.object({
 	name: z.string().min(1, 'Connection name is required').max(50, 'Name is too long'),
-	connectionType: z.enum(['postgresql', 'mysql', 'mariadb', 'sqlite', 'mssql']),
+	type: z.enum(['postgresql', 'mysql', 'mariadb', 'mssql']),
 	host: z
 		.string()
 		.min(1, 'Host is required')

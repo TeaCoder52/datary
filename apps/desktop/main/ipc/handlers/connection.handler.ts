@@ -12,7 +12,7 @@ export interface ConnectionHistoryItem {
 	user: string
 	password?: string
 	database: string
-	connectionType: 'postgresql' | 'mysql' | 'sqlite'
+	type: 'postgresql' | 'mysql' | 'sqlite'
 	ssl?: boolean
 	lastUsed?: number
 }
@@ -37,7 +37,7 @@ export function registerConnectionHandlers() {
 				c.port === connection.port &&
 				c.user === connection.user &&
 				c.database === connection.database &&
-				c.connectionType === connection.connectionType
+				c.type === connection.type
 		)
 
 		const newConnection = { ...connection, lastUsed: Date.now() }
@@ -61,7 +61,7 @@ export function registerConnectionHandlers() {
 					c.port === connection.port &&
 					c.user === connection.user &&
 					c.database === connection.database &&
-					c.connectionType === connection.connectionType
+					c.type === connection.type
 				)
 		)
 		store.set('history', filtered)

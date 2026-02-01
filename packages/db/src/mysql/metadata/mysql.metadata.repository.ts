@@ -1,9 +1,9 @@
-import { SCHEMAS_QUERY } from '../postgres/queries'
-import { DBQueryError } from '../shared/errors'
-import type { QueryResult } from '../shared/sql.types'
+import { SCHEMAS_QUERY } from '../../postgres/metadata/queries'
+import { DBQueryError } from '../../shared/errors'
+import type { QueryResult } from '../../shared/sql.types'
+import { MysqlClient } from '../adapter/mysql.client'
 
-import { MysqlClient } from './mysql.client'
-import { mapTableSchema } from './mysql.mapper'
+import { mapTableSchema } from './mysql.metadata.mapper'
 import { COLUMNS_QUERY, DATABASES_QUERY, TABLES_QUERY, VIEWS_QUERY } from './queries'
 
 export class MysqlMetadataRepository {

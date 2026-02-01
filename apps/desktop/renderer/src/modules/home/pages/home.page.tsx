@@ -105,7 +105,7 @@ export default function HomePage() {
 				user: url.username || 'postgres',
 				password: url.password || '',
 				database: url.pathname.slice(1) || '',
-				connectionType: 'postgresql',
+				type: 'postgresql',
 				ssl: url.searchParams.get('sslmode') === 'require'
 			}
 

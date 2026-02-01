@@ -1,10 +1,10 @@
 import format from 'pg-format'
 
-import { DBQueryError } from '../shared/errors'
-import type { QueryResult } from '../shared/sql.types'
+import { DBQueryError } from '../../shared/errors'
+import type { QueryResult } from '../../shared/sql.types'
+import type { PostgresClient } from '../adapter/postgres.client'
 
-import type { PostgresClient } from './postgres.client'
-import { mapTableSchema } from './postgres.mapper'
+import { mapTableSchema } from './postgres.metadata.mapper'
 import { COLUMNS_QUERY, DATABASES_QUERY, SCHEMAS_QUERY, TABLES_QUERY, VIEWS_QUERY } from './queries'
 
 export type DatabaseMeta = {

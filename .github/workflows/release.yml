@@ -88,9 +88,6 @@ jobs:
             - name: Install deps
               run: pnpm install --frozen-lockfile --prefer-offline
 
-            - name: Install deps
-              run: pnpm run prettier:check
-
     build-windows:
         name: Build Windows & Create Release
         runs-on: windows-latest

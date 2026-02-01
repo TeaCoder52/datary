@@ -30,8 +30,4 @@ export class Connection {
 	public get user() {
 		return this.props.user
 	}
-
-	public get ssl() {
-		return this.props.ssl
-	}
 }

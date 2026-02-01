@@ -4,7 +4,7 @@ import { LuDatabase } from 'react-icons/lu'
 
 import type { DatabaseConnection } from '../../../entities/connection/model/connection.types'
 
-export function getConnectionIcon(type: DatabaseConnection['connectionType']) {
+export function getConnectionIcon(type: DatabaseConnection['type']) {
 	switch (type) {
 		case 'postgresql':
 			return <BiLogoPostgresql className="text-primary size-5" />

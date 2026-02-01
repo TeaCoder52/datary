@@ -1,4 +1,4 @@
-export type ConnectionType = 'postgresql' | 'mysql' | 'mariadb' | 'sqlite' | 'mssql'
+export type ConnectionType = 'postgresql' | 'mysql' | 'mariadb' | 'mssql'
 
 export interface DatabaseConnection {
 	id: string
@@ -7,7 +7,7 @@ export interface DatabaseConnection {
 	port: number
 	user: string
 	database: string
-	connectionType: ConnectionType
+	type: ConnectionType
 	ssl: boolean
 	lastConnected?: string
 }

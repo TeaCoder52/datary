@@ -1,6 +1,6 @@
-export * from './metadata.repository'
+export * from './metadata/postgres.metadata.repository'
 
-export * from './postgres.adapter'
-export * from './postgres.client'
+export * from './adapter/postgres.adapter'
+export * from './adapter/postgres.client'
 
-export * from './postgres.types'
+export * from './adapter/postgres.types'

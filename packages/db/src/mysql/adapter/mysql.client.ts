@@ -1,6 +1,6 @@
 import mysql from 'mysql2/promise'
 
-import type { QueryResult } from '../shared/sql.types'
+import type { QueryResult } from '../../shared/sql.types'
 
 import type { MysqlConnectionConfig } from './mysql.types'
 

@@ -1,3 +1,3 @@
 import { DATABASES_QUERY } from './databases.sql'
 
-export const SCHMEAS_SQL = DATABASES_QUERY
+export const SCHMEAS_QUERY = DATABASES_QUERY

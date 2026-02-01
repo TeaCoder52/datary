@@ -1,6 +1,5 @@
-import type { DbAdapterPort } from '@datary/core'
+import type { ConnectionProps, DbAdapterPort } from '@datary/core'
 import {
-	type DBConnectionConfig,
 	MysqlAdapter,
 	MysqlMetadataRepository,
 	PostgresAdapter,
@@ -15,8 +14,8 @@ export class ConnectionManager {
 
 	private metadataRepo: any = null
 
-	public async connect(config: DBConnectionConfig) {
-		switch (config.connectionType) {
+	public async connect(config: ConnectionProps) {
+		switch (config.type) {
 			case 'postgresql':
 				this.adapter = new PostgresAdapter(config)
 				await this.adapter.connect()
@@ -34,10 +33,10 @@ export class ConnectionManager {
 				break
 
 			default:
-				throw new Error(`Unsupported DB type: ${config.connectionType}`)
+				throw new Error(`Unsupported DB type: ${config.type}`)
 		}
 
-		logger.info(`DB connected (${config.connectionType})`)
+		logger.info(`DB connected (${config.type})`)
 	}
 
 	public getAdapterType() {

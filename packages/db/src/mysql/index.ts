@@ -1,6 +1,6 @@
-export * from './metadata.repository'
+export * from './metadata/mysql.metadata.repository'
 
-export * from './mysql.adapter'
-export * from './mysql.client'
+export * from './adapter/mysql.adapter'
+export * from './adapter/mysql.client'
 
-export * from './mysql.types'
+export * from './adapter/mysql.types'

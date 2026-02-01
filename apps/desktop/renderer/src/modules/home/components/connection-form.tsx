@@ -52,7 +52,7 @@ export function ConnectionForm({ onConnect, onImportUrl, initialData }: Connecti
 			user: initialData?.user ?? '',
 			password: '',
 			database: initialData?.database ?? '',
-			connectionType: initialData?.connectionType ?? 'postgresql',
+			type: initialData?.type ?? 'postgresql',
 			ssl: initialData?.ssl ?? false
 		}
 	})
@@ -90,15 +90,15 @@ export function ConnectionForm({ onConnect, onImportUrl, initialData }: Connecti
 		}
 	}
 
-	const connectionType = form.watch('connectionType')
+	const type = form.watch('type')
 
 	useEffect(() => {
-		const adapter = availableAdapters.find(a => a.id === connectionType)
+		const adapter = availableAdapters.find(a => a.id === type)
 
 		if (adapter) {
 			form.setValue('port', adapter.defaultPort)
 		}
-	}, [connectionType, form])
+	}, [type, form])
 
 	return (
 		<div className="w-full max-w-xl space-y-6">
@@ -151,7 +151,7 @@ export function ConnectionForm({ onConnect, onImportUrl, initialData }: Connecti
 
 					<FormField
 						control={form.control}
-						name="connectionType"
+						name="type"
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Database Type</FormLabel>

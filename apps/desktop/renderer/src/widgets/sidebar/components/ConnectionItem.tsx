@@ -55,7 +55,7 @@ export function ConnectionItem({ connection, collapsed, onSelect, onConnect, onD
 						onClick={onSelect}
 						className="hover:bg-sidebar-accent/50 flex w-full items-center justify-center rounded-md p-2"
 					>
-						{getConnectionIcon(connection.connectionType)}
+						{getConnectionIcon(connection.type)}
 					</button>
 				</TooltipTrigger>
 				<TooltipContent side="right">{connection.name}</TooltipContent>
@@ -72,9 +72,7 @@ export function ConnectionItem({ connection, collapsed, onSelect, onConnect, onD
 						onContextMenu={handleContextMenu}
 						className="group hover:bg-sidebar-accent/50 relative flex w-full gap-3 rounded-md px-3 py-2.5 text-left"
 					>
-						<div className="mt-0.5 shrink-0">
-							{getConnectionIcon(connection.connectionType)}
-						</div>
+						<div className="mt-0.5 shrink-0">{getConnectionIcon(connection.type)}</div>
 
 						<div className="min-w-0 flex-1">
 							<p className="truncate text-sm font-medium">{connection.name}</p>
