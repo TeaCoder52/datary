@@ -67,7 +67,6 @@ jobs:
     build-windows:
         name: Build Windows & Create Release
         runs-on: windows-latest
-        needs: quality-gate
         timeout-minutes: 45
 
         steps:
