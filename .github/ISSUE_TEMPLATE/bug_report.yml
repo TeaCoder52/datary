@@ -1,39 +1,74 @@
----
 name: Bug Report
-about: Report a bug or unexpected behavior
-labels: ["bug"]
+description: Report a bug or unexpected behavior
+labels: ['bug']
 assignees: []
----
 
-## Bug Description
+body:
+    - type: textarea
+      attributes:
+          label: Bug Description
+          description: |
+              Please describe the bug you encountered in as much detail as possible.
 
-Please describe the bug you encountered in as much detail as possible.
+              - What happened?
+              - What did you expect to happen?
+              - Are there any error messages shown?
+          placeholder: |
+              Describe the bug clearly and concisely.
+      validations:
+          required: true
 
-- What happened?
-- What did you expect to happen?
-- Are there any error messages shown?
+    - type: textarea
+      attributes:
+          label: Steps to Reproduce
+          description: |
+              Please include exact steps so we can reproduce the issue.
+          placeholder: |
+              1.
+              2.
+              3.
+              4.
+      validations:
+          required: true
 
-## Steps to Reproduce
+    - type: textarea
+      attributes:
+          label: Screenshots / Logs
+          description: |
+              If applicable, add screenshots or logs to help explain your problem.
+          placeholder: |
+              Paste logs here or attach screenshots.
 
-1.
-2.
-3.
-4.
+    - type: markdown
+      attributes:
+          value: |
+              ## Environment
 
-_(Please include exact steps so we can reproduce the issue.)_
+    - type: input
+      attributes:
+          label: OS
+          placeholder: macOS / Windows / Linux
+      validations:
+          required: true
 
-## Screenshots / Logs
+    - type: input
+      attributes:
+          label: Datary Version
+          placeholder: 0.0.1
+      validations:
+          required: true
 
-If applicable, add screenshots or logs to help explain your problem.
+    - type: input
+      attributes:
+          label: Database
+          placeholder: PostgreSQL / MySQL / MariaDB / Microsoft SQL Server
+      validations:
+          required: true
 
-## Environment
-
-| Feature | Details |
-|---------|---------|
-| OS | |
-| Datary Version | |
-| Database | |
-
-## Additional Context
-
-Add any other context about the problem here.
+    - type: textarea
+      attributes:
+          label: Additional Context
+          description: |
+              Add any other context about the problem here.
+          placeholder: |
+              Any extra information that may help.

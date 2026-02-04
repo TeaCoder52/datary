@@ -9,8 +9,6 @@ import { mainWindow } from './app.state'
 export function createMainWindow() {
 	const preloadPath = getPreloadPath(__dirname)
 
-	console.log('preloadPath: ', preloadPath)
-
 	const win = new BrowserWindow({
 		width: 1200,
 		height: 800,
@@ -28,6 +26,9 @@ export function createMainWindow() {
 	mainWindow.set(win)
 
 	if (isDev && DEV_SERVER_URL) {
+		win.webContents.closeDevTools()
+		win.webContents.setVisualZoomLevelLimits(1, 1)
+
 		win.loadURL(DEV_SERVER_URL)
 	} else {
 		win.loadFile(getRendererIndex(__dirname))

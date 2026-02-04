@@ -2,15 +2,8 @@
 	"name": "@datary/desktop",
 	"version": "0.0.1",
 	"main": "dist/main/index.js",
-	"author": {
-		"name": "Vadim (TeaCoder)",
-		"url": "https://github.com/TeaCoder52"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/TeaCoder52/datary.git"
-	},
 	"scripts": {
+		"postinstall": "node node_modules/electron/install.js && pnpm exec electron-rebuild -f -w keytar",
 		"dev": "concurrently \"pnpm dev:preload\" \"pnpm dev:renderer\" \"pnpm dev:main\" \"pnpm dev:electron\"",
 		"dev:renderer": "pnpm --filter @datary/renderer dev",
 		"dev:preload": "tsc -p preload/tsconfig.json --watch",
@@ -26,7 +19,9 @@
 		"@datary/core": "workspace:*",
 		"@datary/db": "workspace:*",
 		"@datary/ipc": "workspace:*",
-		"electron-store": "^11.0.2"
+		"add": "^2.0.6",
+		"electron-store": "^11.0.2",
+		"keytar": "^7.9.0"
 	},
 	"devDependencies": {
 		"concurrently": "^9.2.1",
@@ -42,7 +37,11 @@
 			"dist/**/*",
 			"preload/**/*",
 			"renderer/dist/**/*",
-			"assets/icons/**/*"
+			"assets/icons/**/*",
+			"!**/*.map",
+			"!**/tests/**",
+			"!**/__mocks__/**",
+			"!**/*.spec.ts"
 		],
 		"directories": {
 			"output": "build"
