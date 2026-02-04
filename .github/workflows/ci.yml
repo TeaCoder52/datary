@@ -16,7 +16,8 @@ env:
     CI: true
 
 jobs:
-    setup:
+    ci:
+        name: CI
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -33,12 +34,6 @@ jobs:
 
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
-
-    format-check:
-        runs-on: ubuntu-latest
-        needs: setup
-        steps:
-            - uses: actions/checkout@v4
 
             - name: Prettier check
               run: pnpm run prettier:check
