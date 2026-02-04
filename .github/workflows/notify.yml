@@ -43,5 +43,8 @@ jobs:
               with:
                   version: ${{ env.PNPM_VERSION }}
 
+            - name: Install dependencies
+              run: pnpm add node-fetch@3.3.1
+
             - name: Send Telegram notification
-              run: pnpm dlx node-fetch@3.3.1 node scripts/telegram-notify.js
+              run: node scripts/telegram-notify.js
