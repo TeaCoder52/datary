@@ -9,11 +9,13 @@
 	},
 	"dependencies": {
 		"@datary/core": "workspace:*",
+		"mssql": "^12.2.0",
 		"mysql2": "^3.16.2",
 		"pg": "^8.17.2",
 		"pg-format": "^1.0.4"
 	},
 	"devDependencies": {
+		"@types/mssql": "^9.1.9",
 		"@types/pg": "^8.16.0",
 		"@types/pg-format": "^1.0.5"
 	}

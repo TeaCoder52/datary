@@ -1,5 +1,7 @@
 import type { ConnectionProps, DbAdapterPort } from '@datary/core'
 import {
+	MariaDbAdapter,
+	MssqlAdapter,
 	MysqlAdapter,
 	MysqlMetadataRepository,
 	PostgresAdapter,
@@ -18,18 +20,46 @@ export class ConnectionManager {
 		switch (config.type) {
 			case 'postgresql':
 				this.adapter = new PostgresAdapter(config)
+
 				await this.adapter.connect()
+
 				// @ts-ignore
 				this.metadataRepo = new PostgresMetadataRepository(this.adapter['client']!)
 				this.adapterType = 'postgres'
+
 				break
 
 			case 'mysql':
 				this.adapter = new MysqlAdapter(config)
+
 				await this.adapter.connect()
+
 				// @ts-ignore
 				this.metadataRepo = new MysqlMetadataRepository(this.adapter['client']!)
 				this.adapterType = 'mysql'
+
+				break
+
+			case 'mariadb':
+				this.adapter = new MariaDbAdapter(config)
+
+				await this.adapter.connect()
+
+				// @ts-ignore
+				this.metadataRepo = new MariadbMetadataRepository(this.adapter['client']!)
+				this.adapterType = 'mariadb'
+
+				break
+
+			case 'mssql':
+				this.adapter = new MssqlAdapter(config)
+
+				await this.adapter.connect()
+
+				// @ts-ignore
+				this.metadataRepo = new MssqlMetadataRepository(this.adapter['client']!)
+				this.adapterType = 'mssql'
+
 				break
 
 			default:

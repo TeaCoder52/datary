@@ -12,7 +12,7 @@ export interface ConnectionHistoryItem {
 	user: string
 	password?: string
 	database: string
-	type: 'postgresql' | 'mysql' | 'sqlite'
+	type: 'postgresql' | 'mysql' | 'mariadb' | 'mssql'
 	ssl?: boolean
 	lastUsed?: number
 }
