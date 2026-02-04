@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+    - name: Support & Community
+      url: https://github.com/teacoder52/datary/discussions
+      about: Join our community if you have questions or general discussions.
+
+    - name: Security Report
+      url: https://github.com/teacoder52/datary/security/advisories
+      about: Report security issues privately using GitHub Security Advisories.
