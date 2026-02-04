@@ -12,6 +12,7 @@ on:
 
 env:
     NODE_VERSION: 20
+    PNPM_VERSION: 10.0.0
 
     TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
     TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -37,8 +38,10 @@ jobs:
               with:
                   node-version: ${{ env.NODE_VERSION }}
 
-            - name: Install dependencies
-              run: npm install node-fetch
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: ${{ env.PNPM_VERSION }}
 
             - name: Send Telegram notification
-              run: node scripts/telegram-notify.js
+              run: pnpm dlx node-fetch@3.3.1 node scripts/telegram-notify.js
