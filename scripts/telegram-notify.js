@@ -10,7 +10,7 @@ const ref = process.env.GITHUB_REF;
 const sha = process.env.GITHUB_SHA;
 const payloadPath = process.env.GITHUB_EVENT_PATH;
 
-let message = `*GitHub Notification*\nRepository: ${repo}\nActor: ${actor}\nEvent: ${event}\nRef: ${ref}\nSHA: ${sha}`;
+let message = `*GitHub Notification*\n\nRepository: ${repo}\nActor: ${actor}\nEvent: ${event}\nRef: ${ref}\nSHA: ${sha}`;
 
 if (payloadPath && fs.existsSync(payloadPath)) {
 	const payload = JSON.parse(fs.readFileSync(payloadPath, 'utf8'));
