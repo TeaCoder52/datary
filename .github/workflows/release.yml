@@ -83,7 +83,7 @@ jobs:
                   version: ${{ env.PNPM_VERSION }}
 
             - name: pnpm store cache
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: ~/.pnpm-store
                   key: windows-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
