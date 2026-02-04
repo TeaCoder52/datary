@@ -4,6 +4,7 @@ import type { Tab } from '../../types/explorer.types'
 
 import { TabContent } from './TabContent'
 import { TableTabs } from '@/shared/components/table-tabs'
+import { cn } from '@/shared/lib/utils'
 
 interface Props {
 	tabs: Tab[]
@@ -23,8 +24,11 @@ export function ExplorerTabs({ tabs, activeTab, onSelectTab, onCloseTab }: Props
 				onCloseTab={onCloseTab}
 			>
 				{tabs.map(tab => (
-					<div key={tab.id} className="h-full">
-						{activeTab === tab.id && <TabContent tab={tab} />}
+					<div
+						key={tab.id}
+						className={cn('h-full', activeTab === tab.id ? 'block' : 'hidden')}
+					>
+						<TabContent tab={tab} />
 					</div>
 				))}
 			</TableTabs>

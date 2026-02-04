@@ -334,7 +334,7 @@ export function DataTable({ data, onCellUpdate }: DataTableProps) {
 						<SelectTrigger className="h-8 w-16">
 							<SelectValue />
 						</SelectTrigger>
-						<SelectContent>
+						<SelectContent position="popper" side="top">
 							<SelectItem value="10">10</SelectItem>
 							<SelectItem value="25">25</SelectItem>
 							<SelectItem value="50">50</SelectItem>

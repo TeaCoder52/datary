@@ -16,10 +16,29 @@ export function useExplorerTabs() {
 		return id
 	}, [])
 
-	const closeTab = useCallback((tabId: string) => {
-		setTabs(prev => prev.filter(t => t.id !== tabId))
-		setActiveTab(prevActive => (prevActive === tabId ? '' : prevActive))
-	}, [])
+	const closeTab = useCallback(
+		(tabId: string) => {
+			setTabs(prev => {
+				const index = prev.findIndex(t => t.id === tabId)
+				const nextTabs = prev.filter(t => t.id !== tabId)
+
+				if (activeTab !== tabId) {
+					return nextTabs
+				}
+
+				if (nextTabs.length === 0) {
+					setActiveTab('')
+					return nextTabs
+				}
+
+				const nextIndex = index < nextTabs.length ? index : nextTabs.length - 1
+				setActiveTab(nextTabs[nextIndex].id)
+
+				return nextTabs
+			})
+		},
+		[activeTab]
+	)
 
 	return { tabs, activeTab, setActiveTab, addTab, closeTab }
 }

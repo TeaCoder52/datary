@@ -7,6 +7,7 @@ interface TableDataState {
 	tables: Record<string, TableData>
 	loading: boolean
 	loadTable: (schema: string, table: string) => Promise<void>
+	reset: () => void
 }
 
 export const useTableDataStore = create<TableDataState>((set, get) => ({
@@ -34,5 +35,10 @@ export const useTableDataStore = create<TableDataState>((set, get) => ({
 			},
 			loading: false
 		}))
-	}
+	},
+	reset: () =>
+		set({
+			tables: {},
+			loading: false
+		})
 }))

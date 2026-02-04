@@ -1,5 +1,6 @@
-import { LogOut, RefreshCw, Settings, Terminal } from 'lucide-react'
+import { LogOut, RefreshCw, Terminal } from 'lucide-react'
 
+import { cn } from '@/shared/lib/utils'
 import { Button } from '@/shared/ui/button'
 
 interface ExplorerHeaderProps {
@@ -27,9 +28,10 @@ export function ExplorerHeader({
 					size="sm"
 					className="gap-2 bg-transparent"
 					onClick={onRefresh}
+					disabled={isRefreshing}
 				>
-					<RefreshCw className="h-4 w-4" data-animate={isRefreshing ? 'spin' : ''} />
-					Refresh
+					<RefreshCw className={cn('h-4 w-4', isRefreshing && 'animate-spin')} />
+					{isRefreshing ? 'Refreshing' : 'Refresh'}
 				</Button>
 
 				<Button
@@ -40,11 +42,6 @@ export function ExplorerHeader({
 				>
 					<Terminal className="h-4 w-4" />
 					Query
-				</Button>
-
-				<Button variant="outline" size="icon" className="h-8 w-8 bg-transparent">
-					<Settings className="h-4 w-4" />
-					<span className="sr-only">Settings</span>
 				</Button>
 
 				<Button

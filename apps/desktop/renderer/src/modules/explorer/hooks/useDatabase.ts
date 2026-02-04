@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 
+import { useTableDataStore } from '@/app/store/table-data.store'
 import { useConnectionStore } from '@/entities/connection/model/connection.store'
 
 export function useDatabase() {
@@ -11,30 +12,54 @@ export function useDatabase() {
 	const databases = useConnectionStore(s => s.databases)
 	const setDatabases = useConnectionStore(s => s.setDatabases)
 
-	useEffect(() => {
-		if (!connection) return
+	const resetTables = useTableDataStore(s => s.reset)
 
-		const init = async () => {
+	const connect = useCallback(
+		async (dbName?: string) => {
+			if (!connection) return
+
 			await window.datary.db.connect({
 				...connection,
-				database: connection.database || 'postgres'
+				database: dbName ?? connection.database ?? 'postgres'
 			})
+
 			const dbs = await window.datary.db.loadDatabases()
 
 			setDatabases(dbs.map(d => d.name))
-			setSelectedDatabase(connection.database || dbs[0].name)
-		}
+			setSelectedDatabase(dbName ?? connection.database ?? dbs[0]?.name)
+		},
+		[connection]
+	)
 
-		init()
+	useEffect(() => {
+		if (!connection) return
+		connect()
 	}, [connection])
 
 	const selectDatabase = async (dbName: string) => {
-		if (!connection) return
+		resetTables()
 
-		await window.datary.db.connect({ ...connection, database: dbName })
-
-		setSelectedDatabase(dbName)
+		await connect(dbName)
 	}
 
-	return { selectedDatabase, databases, selectDatabase }
+	const refresh = async () => {
+		if (!connection) return
+
+		resetTables()
+
+		await window.datary.db.connect({
+			...connection,
+			database: selectedDatabase
+		})
+
+		const dbs = await window.datary.db.loadDatabases()
+		setDatabases(dbs.map(d => d.name))
+	}
+
+	return {
+		selectedDatabase,
+		databases,
+		selectDatabase,
+		refresh
+	}
 }

@@ -7,7 +7,7 @@ export function useExplorer() {
 	const sidebar = useExplorerSidebar()
 	const tabs = useExplorerTabs()
 	const database = useDatabase()
-	const actions = useExplorerActions(tabs)
+	const actions = useExplorerActions(tabs, database)
 
 	return {
 		sidebar,

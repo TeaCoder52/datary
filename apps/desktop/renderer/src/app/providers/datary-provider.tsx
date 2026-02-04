@@ -8,29 +8,29 @@ interface DataryProviderProps {
 }
 
 export function DataryProvider({ children }: DataryProviderProps) {
-	const [dataryReady, setDataryReady] = useState<boolean | null>(null)
+	const [ready, setReady] = useState<boolean | null>(null)
 
 	useEffect(() => {
 		const checkInterval = setInterval(() => {
-			if ((window as any).datary) {
-				setDataryReady(true)
+			if (window.datary) {
+				setReady(true)
 				clearInterval(checkInterval)
 			}
 		}, 100)
 
 		const timeout = setTimeout(() => {
-			if (!dataryReady) setDataryReady(false)
+			if (!ready) setReady(false)
 		}, 3000)
 
 		return () => {
 			clearInterval(checkInterval)
 			clearTimeout(timeout)
 		}
-	}, [dataryReady])
+	}, [ready])
 
 	const handleReload = () => window.location.reload()
 
-	if (dataryReady === null) {
+	if (ready === null) {
 		return (
 			<div className="bg-background text-foreground flex h-screen w-screen items-center justify-center">
 				<Loader2 className="text-primary h-9 w-9 animate-spin" />
@@ -38,7 +38,7 @@ export function DataryProvider({ children }: DataryProviderProps) {
 		)
 	}
 
-	if (!dataryReady) {
+	if (!ready) {
 		return (
 			<div className="bg-background text-foreground flex h-screen w-screen flex-col items-center justify-center gap-4">
 				<h1 className="text-2xl font-bold">Something went wrong</h1>
