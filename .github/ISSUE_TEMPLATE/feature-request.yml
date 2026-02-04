@@ -1,0 +1,24 @@
+---
+name: Feature Request
+about: Suggest a new idea or improvement
+labels: ["enhancement"]
+assignees: []
+---
+
+## Feature Description
+
+What feature are you requesting?
+Please explain why this would be useful and who would benefit from it.
+
+## Use Case / Motivation
+
+- What problem does this solve?
+- How is it useful?
+
+## Suggested Implementation
+
+If you have ideas about how this could work (UI, behavior, API), describe them here.
+
+## Examples / References
+
+If this idea exists in other tools or contexts, include links, screenshots, or examples.

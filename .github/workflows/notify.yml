@@ -1,0 +1,76 @@
+name: Notify
+
+on:
+    push:
+        branches:
+            - main
+            - develop
+    pull_request:
+        types: [opened, closed, reopened, merged]
+    issues:
+        types: [opened, closed, reopened]
+
+env:
+    NODE_VERSION: 20
+
+    TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+    GITHUB_ACTOR: ${{ github.actor }}
+    GITHUB_EVENT_NAME: ${{ github.event_name }}
+    GITHUB_REPOSITORY: ${{ github.repository }}
+    GITHUB_REF: ${{ github.ref }}
+    GITHUB_SHA: ${{ github.sha }}
+
+jobs:
+    telegram-notify:
+        name: Telegram Notification
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+
+            - name: Install dependencies
+              run: npm install node-fetch
+
+            - name: Send Telegram notification
+              run: |
+                  node -e "
+                    import fetch from 'node-fetch';
+
+                    const token = process.env.TELEGRAM_BOT_TOKEN;
+                    const chatId = process.env.TELEGRAM_CHAT_ID;
+                    const actor = process.env.GITHUB_ACTOR;
+                    const event = process.env.GITHUB_EVENT_NAME;
+                    const repo = process.env.GITHUB_REPOSITORY;
+                    const ref = process.env.GITHUB_REF;
+                    const sha = process.env.GITHUB_SHA;
+
+                    let message = `*GitHub Notification*\nRepository: ${repo}\nActor: ${actor}\nEvent: ${event}\nRef: ${ref}\nSHA: ${sha}`;
+
+                    if (event === 'pull_request') {
+                      const pr = JSON.parse(process.env.GITHUB_EVENT_PATH);
+                      message += `\nPR Title: ${pr.pull_request.title}\nAction: ${pr.action}\nURL: ${pr.pull_request.html_url}`;
+                    }
+
+                    if (event === 'issues') {
+                      const issue = JSON.parse(process.env.GITHUB_EVENT_PATH);
+                      message += `\nIssue Title: ${issue.issue.title}\nAction: ${issue.action}\nURL: ${issue.issue.html_url}`;
+                    }
+
+                    fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message,
+                        parse_mode: 'Markdown'
+                      })
+                    });
+                  "
