@@ -2,6 +2,30 @@
 	"name": "datary",
 	"version": "0.0.1",
 	"description": "A modern cross-platform database explorer",
+	"author": {
+		"name": "Vadim (TeaCoder)",
+		"url": "https://github.com/TeaCoder52"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/TeaCoder52/datary.git"
+	},
+	"homepage": "https://github.com/TeaCoder52/datary#readme",
+	"bugs": {
+		"url": "https://github.com/TeaCoder52/datary/issues"
+	},
+	"keywords": [
+		"electron",
+		"desktop",
+		"database",
+		"explorer",
+		"postgresql",
+		"mysql",
+		"mariadb",
+		"mssql"
+	],
+	"packageManager": "pnpm@10.0.0",
 	"scripts": {
 		"build": "pnpm run build:packages && pnpm --filter @datary/desktop build",
 		"build:windows": "pnpm run build && pnpm --filter @datary/desktop dist --win",
@@ -17,11 +41,11 @@
 	"lint-staged": {
 		"{apps,packages}/**/*.{ts,tsx,json,md}": "prettier --write"
 	},
-	"packageManager": "pnpm@10.0.0",
 	"devDependencies": {
 		"@commitlint/cli": "^20.3.1",
 		"@commitlint/config-conventional": "^20.3.1",
 		"@commitlint/types": "^20.3.1",
+		"@electron/rebuild": "^4.0.3",
 		"@trivago/prettier-plugin-sort-imports": "^6.0.2",
 		"@types/electron-builder": "^2.8.2",
 		"@types/node": "^24.10.9",

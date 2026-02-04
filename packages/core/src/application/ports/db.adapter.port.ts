@@ -1,4 +1,3 @@
-import { DatabaseMetadataContract } from '../../contracts/metadata.contract'
 import type { QueryResult } from '../../domain/query/query.types'
 
 export interface DbAdapterPort {

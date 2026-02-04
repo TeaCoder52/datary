@@ -14,5 +14,16 @@ export default defineConfig({
 		alias: {
 			'@': '/src'
 		}
+	},
+	build: {
+		minify: 'esbuild',
+		sourcemap: false,
+		rollupOptions: {
+			output: {
+				manualChunks: {
+					vendor: ['react', 'react-dom']
+				}
+			}
+		}
 	}
 })

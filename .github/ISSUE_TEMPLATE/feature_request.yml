@@ -1,0 +1,56 @@
+name: Feature Request
+description: Suggest a new idea or improvement for Datary
+labels: ['enhancement']
+assignees: []
+
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for taking the time to suggest an improvement!
+              Datary is a database management tool, so features related to databases, UX, performance, or integrations are especially welcome.
+
+    - type: textarea
+      attributes:
+          label: Feature description
+          description: |
+              What feature are you requesting?
+              Explain what it does and why it would be valuable.
+          placeholder: |
+              Example:
+              Add support for exporting query results to CSV/JSON directly from the results table.
+      validations:
+          required: true
+
+    - type: textarea
+      attributes:
+          label: Use case / motivation
+          description: |
+              Describe the problem this feature solves and who would benefit from it.
+          placeholder: |
+              Example:
+              When working with large datasets, I often need to share query results with teammates.
+              Currently, I have to copy data manually or use external tools.
+      validations:
+          required: true
+
+    - type: textarea
+      attributes:
+          label: Suggested implementation
+          description: |
+              If you have ideas on how this could work (UI, behavior, API), describe them here.
+              This is optional but very helpful.
+          placeholder: |
+              Example:
+              - Add an "Export" button near the results table
+              - Allow selecting format (CSV / JSON)
+              - Save file via native OS dialog
+
+    - type: textarea
+      attributes:
+          label: Examples / references
+          description: |
+              If similar functionality exists in other tools, add links, screenshots, or descriptions.
+          placeholder: |
+              Example:
+              DBeaver has a similar export dialog with format selection and preview.
