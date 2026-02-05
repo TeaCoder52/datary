@@ -25,7 +25,7 @@ if (GITHUB_EVENT_PATH && fs.existsSync(GITHUB_EVENT_PATH)) {
 
 	if (GITHUB_EVENT_NAME === 'push') {
 		message += `\n*Push*\n\n`
-		message += `Branch: ${GITHUB_REF?.replace('refs/heads/', '')}\n`
+		message += `Branch: ${GITHUB_REF?.replace('refs/heads/', '')}\n\n`
 
 		payload.commits?.slice(0, 3).forEach((c, i) => {
 			message += `${i + 1}. ${c.message.split('\n')[0]}\n`

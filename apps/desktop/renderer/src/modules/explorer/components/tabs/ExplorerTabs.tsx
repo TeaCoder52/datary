@@ -2,8 +2,9 @@ import type { ReactNode } from 'react'
 
 import type { Tab } from '../../types/explorer.types'
 
+import { ExplorerTabContextMenu } from './ExplorerTabContextMenu'
 import { TabContent } from './TabContent'
-import { TableTabs } from '@/shared/components/table-tabs'
+import { TableTabs } from './TableTabs'
 import { cn } from '@/shared/lib/utils'
 
 interface Props {
@@ -11,10 +12,19 @@ interface Props {
 	activeTab: string
 	onSelectTab: (id: string) => void
 	onCloseTab: (id: string) => void
+	onCloseOthers: (id: string) => void
+	onCloseAll: () => void
 	children?: ReactNode
 }
 
-export function ExplorerTabs({ tabs, activeTab, onSelectTab, onCloseTab }: Props) {
+export function ExplorerTabs({
+	tabs,
+	activeTab,
+	onSelectTab,
+	onCloseTab,
+	onCloseOthers,
+	onCloseAll
+}: Props) {
 	return (
 		<div className="flex h-full flex-col">
 			<TableTabs
@@ -22,6 +32,21 @@ export function ExplorerTabs({ tabs, activeTab, onSelectTab, onCloseTab }: Props
 				activeTab={activeTab}
 				onSelectTab={onSelectTab}
 				onCloseTab={onCloseTab}
+				renderTab={(tab, tabNode) => (
+					<ExplorerTabContextMenu
+						disabledCloseOthers={tabs.length <= 1}
+						onClose={() => onCloseTab(tab.id)}
+						onCloseOthers={() => {
+							onSelectTab(tab.id)
+							onCloseOthers(tab.id)
+						}}
+						onCloseAll={() => {
+							onCloseAll()
+						}}
+					>
+						<div className="h-full">{tabNode}</div>
+					</ExplorerTabContextMenu>
+				)}
 			>
 				{tabs.map(tab => (
 					<div

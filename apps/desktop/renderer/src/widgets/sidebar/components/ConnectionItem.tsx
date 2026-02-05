@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { getConnectionIcon } from '../lib/get-connection-icon'
 
 import type { DatabaseConnection } from '@/entities/connection/model/connection.types'
+import { useContextMenu } from '@/shared/hooks/useContextMenu'
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -32,19 +33,13 @@ interface Props {
 }
 
 export function ConnectionItem({ connection, collapsed, onSelect, onConnect, onDelete }: Props) {
-	const [contextMenuOpen, setContextMenuOpen] = useState(false)
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+	const { open, position, onContextMenu, openAtButton, close } = useContextMenu()
 
-	const handleContextMenu = (e: React.MouseEvent) => {
-		e.preventDefault()
-		setContextMenuOpen(true)
-	}
-
-	const handleCloseContext = () => setContextMenuOpen(false)
 	const handleDeleteConfirm = () => {
 		onDelete?.()
 		setIsDeleteDialogOpen(false)
-		handleCloseContext()
+		close()
 	}
 
 	if (collapsed) {
@@ -65,11 +60,11 @@ export function ConnectionItem({ connection, collapsed, onSelect, onConnect, onD
 
 	return (
 		<>
-			<DropdownMenu open={contextMenuOpen} onOpenChange={setContextMenuOpen}>
+			<DropdownMenu open={open} onOpenChange={val => !val && close()}>
 				<DropdownMenuTrigger asChild>
 					<button
 						onClick={onSelect}
-						onContextMenu={handleContextMenu}
+						onContextMenu={onContextMenu}
 						className="group hover:bg-sidebar-accent/50 relative flex w-full gap-3 rounded-md px-3 py-2.5 text-left"
 					>
 						<div className="mt-0.5 shrink-0">{getConnectionIcon(connection.type)}</div>
@@ -95,7 +90,7 @@ export function ConnectionItem({ connection, collapsed, onSelect, onConnect, onD
 							variant="ghost"
 							onClick={e => {
 								e.stopPropagation()
-								setContextMenuOpen(true)
+								openAtButton()
 							}}
 							className="absolute top-1 right-1 h-6 w-6 opacity-0 group-hover:opacity-100"
 						>
@@ -104,16 +99,11 @@ export function ConnectionItem({ connection, collapsed, onSelect, onConnect, onD
 					</button>
 				</DropdownMenuTrigger>
 
-				<DropdownMenuContent
-					align="end"
-					side="right"
-					className="w-20"
-					onCloseAutoFocus={handleCloseContext}
-				>
+				<DropdownMenuContent align="end" side="right" className="w-28">
 					<DropdownMenuItem
 						onClick={() => {
 							onConnect?.()
-							handleCloseContext()
+							close()
 						}}
 					>
 						<Database className="mr-2 h-4 w-4" />

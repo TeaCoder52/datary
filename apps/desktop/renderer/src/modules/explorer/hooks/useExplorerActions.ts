@@ -40,8 +40,6 @@ export function useExplorerActions(tabs: any, database: any) {
 	}
 
 	const handleDisconnect = async () => {
-		await window.datary.db.disconnect()
-
 		navigate('/')
 	}
 
