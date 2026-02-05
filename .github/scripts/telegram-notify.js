@@ -1,5 +1,5 @@
-import fetch from 'node-fetch'
-import fs from 'fs'
+const fetch = require('node-fetch')
+const fs = require('fs')
 
 const {
 	TELEGRAM_BOT_TOKEN,
@@ -25,7 +25,7 @@ if (GITHUB_EVENT_PATH && fs.existsSync(GITHUB_EVENT_PATH)) {
 	const payload = JSON.parse(fs.readFileSync(GITHUB_EVENT_PATH, 'utf8'))
 
 	if (GITHUB_EVENT_NAME === 'push') {
-		message += `\n*Push*\n`
+		message += `\n*Push*\n\n`
 		message += `Branch: ${GITHUB_REF?.replace('refs/heads/', '')}\n`
 
 		payload.commits?.slice(0, 3).forEach((c, i) => {
@@ -35,7 +35,7 @@ if (GITHUB_EVENT_PATH && fs.existsSync(GITHUB_EVENT_PATH)) {
 
 	if (GITHUB_EVENT_NAME === 'pull_request' || GITHUB_EVENT_NAME === 'pull_request_target') {
 		const pr = payload.pull_request
-		message += `\n*Pull Request*\n`
+		message += `\n*Pull Request*\n\n`
 		message += `Title: ${pr.title}\n`
 		message += `Action: ${payload.action}\n`
 		message += `URL: ${pr.html_url}\n`
@@ -43,7 +43,7 @@ if (GITHUB_EVENT_PATH && fs.existsSync(GITHUB_EVENT_PATH)) {
 
 	if (GITHUB_EVENT_NAME === 'issues') {
 		const issue = payload.issue
-		message += `\n*Issue*\n`
+		message += `\n*Issue*\n\n`
 		message += `Title: ${issue.title}\n`
 		message += `Action: ${payload.action}\n`
 		message += `URL: ${issue.html_url}\n`

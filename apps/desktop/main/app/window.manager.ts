@@ -1,5 +1,4 @@
 import { BrowserWindow, ipcMain, Menu } from 'electron'
-import path from 'path'
 
 import { DEV_SERVER_URL, isDev } from '../config/env'
 import { getPreloadPath, getRendererIndex } from '../config/paths'
@@ -10,15 +9,19 @@ export function createMainWindow() {
 	const preloadPath = getPreloadPath(__dirname)
 
 	const win = new BrowserWindow({
+		title: 'Datary',
 		width: 1200,
 		height: 800,
 		show: false,
-		title: 'Datary',
 		webPreferences: {
 			preload: preloadPath,
 			contextIsolation: true,
 			nodeIntegration: false,
-			sandbox: false
+			sandbox: false,
+			devTools: isDev,
+			enableBlinkFeatures: 'LayoutNG',
+			spellcheck: false,
+			backgroundThrottling: false
 		}
 	})
 
@@ -26,9 +29,6 @@ export function createMainWindow() {
 	mainWindow.set(win)
 
 	if (isDev && DEV_SERVER_URL) {
-		win.webContents.closeDevTools()
-		win.webContents.setVisualZoomLevelLimits(1, 1)
-
 		win.loadURL(DEV_SERVER_URL)
 	} else {
 		win.loadFile(getRendererIndex(__dirname))
