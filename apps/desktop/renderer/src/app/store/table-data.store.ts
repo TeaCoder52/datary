@@ -26,15 +26,48 @@ export const useTableDataStore = create<TableDataState>((set, get) => ({
 
 		set({ loading: true })
 
-		const data = await window.datary.db.loadTableData(schema, table)
+		try {
+			const [columnsRaw, tableDataRaw] = await Promise.all([
+				window.datary.db.loadColumns(schema, table),
+				window.datary.db.loadTableData(schema, table)
+			])
 
-		set(state => ({
-			tables: {
-				...state.tables,
-				[key]: data
-			},
-			loading: false
-		}))
+			// @ts-ignore
+			const columns = columnsRaw.map(col => {
+				let type = col.type
+				if (col.enumValues && col.enumValues.length > 0) {
+					type = `enum(${col.enumValues.join(', ')})`
+				}
+				return {
+					columnName: col.columnName,
+					type,
+					nullable: col.nullable,
+					enumValues: col.enumValues
+				}
+			})
+
+			const tableData: TableData = {
+				// @ts-ignore
+				columns: columns.map(col => ({
+					name: col.columnName,
+					type: col.type,
+					nullable: col.nullable
+				})),
+				rows: tableDataRaw.rows
+			}
+
+			set(state => ({
+				tables: {
+					...state.tables,
+					[key]: tableData
+				},
+				loading: false
+			}))
+		} catch (err: any) {
+			toast.error(`Failed to load table ${table}: ${err.message}`)
+			console.error(err)
+			set({ loading: false })
+		}
 	},
 	reset: () =>
 		set({

@@ -1,9 +1,8 @@
 import { ChevronLeft, ChevronRight, Table, X } from 'lucide-react'
-import React from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { type ReactNode, useEffect, useRef, useState } from 'react'
 
-import { cn } from '../lib/utils'
-import { Button } from '../ui/button'
+import { cn } from '../../../../shared/lib/utils'
+import { Button } from '../../../../shared/ui/button'
 
 export interface Tab {
 	id: string
@@ -16,10 +15,18 @@ interface TableTabsProps {
 	activeTab: string
 	onSelectTab: (id: string) => void
 	onCloseTab: (id: string) => void
-	children: React.ReactNode
+	renderTab?: (tab: Tab, defaultTab: ReactNode) => ReactNode
+	children: ReactNode
 }
 
-export function TableTabs({ tabs, activeTab, onSelectTab, onCloseTab, children }: TableTabsProps) {
+export function TableTabs({
+	tabs,
+	activeTab,
+	onSelectTab,
+	onCloseTab,
+	renderTab,
+	children
+}: TableTabsProps) {
 	const tabsRef = useRef<HTMLDivElement>(null)
 	const [showScrollButtons, setShowScrollButtons] = useState(false)
 
@@ -61,38 +68,42 @@ export function TableTabs({ tabs, activeTab, onSelectTab, onCloseTab, children }
 				)}
 
 				<div ref={tabsRef} className="scrollbar-none flex flex-1 overflow-x-auto">
-					{tabs.map(tab => (
-						<button
-							key={tab.id}
-							type="button"
-							className={cn(
-								'group border-border flex shrink-0 items-center gap-2 border-r px-4 py-2 text-sm transition-colors',
-								activeTab === tab.id
-									? 'bg-background text-foreground'
-									: 'bg-card text-muted-foreground hover:bg-secondary hover:text-foreground'
-							)}
-							onClick={() => onSelectTab(tab.id)}
-						>
-							<Table className="text-primary h-4 w-4" />
-							<span className="max-w-32 truncate">{tab.name}</span>
+					{tabs.map(tab => {
+						const defaultTab = (
 							<button
+								key={tab.id}
 								type="button"
 								className={cn(
-									'ml-1 rounded p-0.5 transition-colors',
-									'text-muted-foreground hover:bg-secondary hover:text-foreground',
-									'opacity-0 group-hover:opacity-100',
-									activeTab === tab.id && 'opacity-100'
+									'group border-border flex shrink-0 items-center gap-2 border-r px-4 py-2 text-sm transition-colors select-none',
+									activeTab === tab.id
+										? 'bg-background text-foreground'
+										: 'bg-card text-muted-foreground hover:bg-secondary hover:text-foreground'
 								)}
-								onClick={e => {
-									e.stopPropagation()
-									onCloseTab(tab.id)
-								}}
+								onClick={() => onSelectTab(tab.id)}
 							>
-								<X className="h-3.5 w-3.5" />
-								<span className="sr-only">Close tab</span>
+								<Table className="text-primary h-4 w-4" />
+								<span className="max-w-32 truncate">{tab.name}</span>
+
+								<button
+									type="button"
+									className={cn(
+										'ml-1 rounded p-0.5 transition-colors',
+										'text-muted-foreground hover:bg-secondary hover:text-foreground',
+										'opacity-0 group-hover:opacity-100',
+										activeTab === tab.id && 'opacity-100'
+									)}
+									onClick={e => {
+										e.stopPropagation()
+										onCloseTab(tab.id)
+									}}
+								>
+									<X className="h-3.5 w-3.5" />
+								</button>
 							</button>
-						</button>
-					))}
+						)
+
+						return renderTab ? renderTab(tab, defaultTab) : defaultTab
+					})}
 				</div>
 
 				{showScrollButtons && (
@@ -103,7 +114,6 @@ export function TableTabs({ tabs, activeTab, onSelectTab, onCloseTab, children }
 						onClick={() => scroll('right')}
 					>
 						<ChevronRight className="h-4 w-4" />
-						<span className="sr-only">Scroll right</span>
 					</Button>
 				)}
 			</div>

@@ -24,6 +24,7 @@ export type ColumnMeta = {
 	columnName: string
 	type: string
 	nullable: boolean
+	enumValues?: string[]
 }
 
 export class PostgresMetadataRepository {
@@ -64,9 +65,20 @@ export class PostgresMetadataRepository {
 	}
 
 	public async loadColumns(schema: string, table: string): Promise<ColumnMeta[]> {
-		const res = await this.safeQuery(COLUMNS_QUERY, [schema, table])
+		const rows = await this.safeQuery(COLUMNS_QUERY, [schema, table])
+		const columns = mapTableSchema(rows.rows)
 
-		return mapTableSchema(res.rows)
+		for (const col of columns) {
+			if (col.type === 'USER-DEFINED') {
+				const enumValues = await this.loadEnumValues(schema, col.type)
+				if (enumValues) {
+					col.enumValues = enumValues
+					col.type = `enum(${enumValues.join(', ')})`
+				}
+			}
+		}
+
+		return columns
 	}
 
 	public async loadTableData(schema: string, table: string, limit = 100, offset = 0) {
@@ -83,6 +95,24 @@ export class PostgresMetadataRepository {
 			columns,
 			rows: result.rows
 		}
+	}
+
+	private async loadEnumValues(
+		schema: string,
+		columnType: string
+	): Promise<string[] | undefined> {
+		const res = await this.safeQuery<{ enumlabel: string }>(
+			`SELECT enumlabel
+     FROM pg_type t
+     JOIN pg_enum e ON t.oid = e.enumtypid
+     JOIN pg_catalog.pg_namespace n ON n.oid = t.typnamespace
+     WHERE n.nspname = $1
+       AND t.typname = $2`,
+			[schema, columnType]
+		)
+
+		if (res.rows.length === 0) return undefined
+		return res.rows.map(r => r.enumlabel)
 	}
 
 	private async safeQuery<T = any>(sql: string, params?: any[]): Promise<QueryResult<T>> {

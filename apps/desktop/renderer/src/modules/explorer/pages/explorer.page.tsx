@@ -51,6 +51,8 @@ export default function ExplorerPage() {
 							activeTab={explorer.tabs.activeTab}
 							onSelectTab={explorer.tabs.setActiveTab}
 							onCloseTab={explorer.tabs.closeTab}
+							onCloseOthers={explorer.tabs.closeOthers}
+							onCloseAll={explorer.tabs.closeAll}
 						/>
 					</main>
 				</div>

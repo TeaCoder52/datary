@@ -1,7 +1,9 @@
+import { useMemo } from 'react'
+
 import type { Tab } from '../../types/explorer.types'
 
 import { useTableDataStore } from '@/app/store/table-data.store'
-import { DataTable } from '@/shared/components/data-table'
+import { DataGrid } from '@/widgets/data-grid/DataGrid'
 import { QueryEditor } from '@/widgets/query-editor/components/QueryEditor'
 
 interface Props {
@@ -26,5 +28,15 @@ export function TabContent({ tab }: Props) {
 		)
 	}
 
-	return <DataTable data={data} />
+	const gridData = useMemo(() => {
+		return {
+			rows: data.rows,
+			columns: data.columns.map(col => ({
+				name: col.name,
+				type: col.type
+			}))
+		}
+	}, [data])
+
+	return <DataGrid data={gridData} rowHeight={32} renderer="dom" editable />
 }
