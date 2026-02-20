@@ -74,7 +74,7 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - uses: actions/setup-node@v4
+            - uses: actions/setup-node@v6
               with:
                   node-version: ${{ env.NODE_VERSION }}
 
@@ -83,7 +83,7 @@ jobs:
                   version: ${{ env.PNPM_VERSION }}
 
             - name: pnpm store cache
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: ~/.pnpm-store
                   key: windows-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -117,7 +117,7 @@ jobs:
         steps:
             - uses: actions/checkout@v6
 
-            - uses: actions/setup-node@v4
+            - uses: actions/setup-node@v6
               with:
                   node-version: ${{ env.NODE_VERSION }}
 
@@ -153,7 +153,7 @@ jobs:
         steps:
             - uses: actions/checkout@v6
 
-            - uses: actions/setup-node@v4
+            - uses: actions/setup-node@v6
               with:
                   node-version: ${{ env.NODE_VERSION }}
 
