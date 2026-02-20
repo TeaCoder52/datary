@@ -28,8 +28,6 @@ We aim to maintain a friendly and inclusive environment. Please respect all part
 - Give constructive feedback.
 - Report problems or abusive behavior to maintainers.
 
-Full code of conduct can be found in [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md).
-
 ---
 
 ## How to Contribute

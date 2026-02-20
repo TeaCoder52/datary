@@ -8,7 +8,6 @@ body:
       attributes:
           value: |
               Thanks for taking the time to suggest an improvement!
-              Datary is a database management tool, so features related to databases, UX, performance, or integrations are especially welcome.
 
     - type: textarea
       attributes:

@@ -1,8 +1,4 @@
-import type {
-	ColumnMetadataContract,
-	DatabaseMetadataContract,
-	TableMetadataContract
-} from '@datary/core'
+import type { DatabaseMetadataContract, TableMetadataContract } from '@datary/core'
 import ReactDOM from 'react-dom/client'
 import { HashRouter } from 'react-router-dom'
 
@@ -26,11 +22,7 @@ declare global {
 					schema: string | null
 				): Promise<TableMetadataContract[]>
 				loadViews(database: string, schema: string | null): Promise<TableMetadataContract[]>
-				loadColumns(
-					database: string,
-					schema: string,
-					table: string
-				): Promise<ColumnMetadataContract[]>
+				loadColumns: any
 				loadTableData: any
 				disconnect: Function
 			}

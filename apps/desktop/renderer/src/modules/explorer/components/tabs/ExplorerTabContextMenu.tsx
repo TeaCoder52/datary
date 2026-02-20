@@ -29,7 +29,7 @@ export function ExplorerTabContextMenu({
 						align="start"
 						sideOffset={4}
 						className="absolute"
-						style={{ top: position.y, left: position.x }}
+						style={{ top: position!.y, left: position!.x }}
 					>
 						<DropdownMenuItem
 							onClick={() => {

@@ -34,7 +34,7 @@ interface Props {
 
 export function ConnectionItem({ connection, collapsed, onSelect, onConnect, onDelete }: Props) {
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
-	const { open, position, onContextMenu, openAtButton, close } = useContextMenu()
+	const { open, onContextMenu, openAtButton, close } = useContextMenu()
 
 	const handleDeleteConfirm = () => {
 		onDelete?.()
